@@ -22,3 +22,11 @@ npm start
 ```
 [http://localhost:3000/](http://localhost:3000/)
 
+## dependencies
+
+So far, using:
+- react
+- typescript
+- react-router-dom
+- material-ui
+

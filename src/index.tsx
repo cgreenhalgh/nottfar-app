@@ -6,18 +6,27 @@ import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 ReactDOM.render(
   <Provider store={store}>
+   <ThemeProvider theme={theme}>
+    <CssBaseline />
+
     <Router>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/a">A</Link>
-          </li>
-        </ul>
+
+      <Box>
+        <Button color="primary" component={Link} to="/">
+          Home
+        </Button>
+        <Button color="primary" component={Link} to="/a">
+          A
+        </Button>
+      </Box>
 
       <Switch>
         <Route path="/a" component={App} />
@@ -26,6 +35,7 @@ ReactDOM.render(
         </Route>
       </Switch>
     </Router>
+   </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
