@@ -1,6 +1,6 @@
 import { Data } from './types';
 
-const sampleClimbData:Data = {
+export const sampleClimbData:Data = {
     tracks: {
         climbayb1_1: {
             id: "climbayb1_1",
@@ -95,3 +95,4 @@ const sampleClimbData:Data = {
 export function loadData() : Data {
     return sampleClimbData;
 }
+

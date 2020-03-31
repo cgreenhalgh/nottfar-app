@@ -8,7 +8,7 @@ import SlotView from './views/SlotView';
 import ListView from './views/ListView';
 import ExperienceView from './views/ExperienceView';
 import ExperienceListView from './views/ExperienceListView';
-import store from './app/store';
+import store from './store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
