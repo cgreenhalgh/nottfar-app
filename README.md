@@ -30,3 +30,100 @@ So far, using:
 - react-router-dom
 - material-ui
 
+## design
+
+### data model
+
+`AudioTrack`, specifically audio:
+- `url`
+- `fromSeconds` : number, default 0
+- `toSeconds` : number, default undefined(?!)
+- `gain`: number, default 1
+
+`Track`, i.e. a particular version, performance or implementation:
+- `id` : string
+- `audio` : AudioTrack[]
+- (artist/attribution)
+- (copyright?)
+- (tempo)
+- (time signature)
+- (repeat?)
+- (FX...)
+- (sequencing...)
+
+`Slot`, i.e. a track as part of a work/playlist, e.g. a movement, section, song:
+- `key` : string - for correlating Slots in different lists, 
+i.e. only unique within a single List
+- `title` : string
+- `description` : string - html?!
+- `trackId`: string (Track.id), optional
+- `isHidden`: boolean, default false
+- (composer/attribution?)
+- (copyright?)
+- (transition)
+- (treatment?)
+- (rank/order?)
+- (version?)
+
+`List`, i.e. a potentially composite work, e.g. an album, piece:
+- `id` : string
+- `title` : string
+- `description` : string - html?!
+- `slots`: Slot[]
+- (artist/attribution)
+- (description)
+- (copyright?)
+
+`ViewMapping`:
+- `isListView`: boolean, default false
+- `listId`: string, optional
+- `isSlotView`: boolean, default false
+- `slotKey`: string, optional
+- `viewKey`: string, default "default", in URL, unique within list/slot
+- `viewComponent`: string - component name
+- `rank`: number - to sort
+- (view parameters)
+
+`Experience`, i.e. the whole thing:
+- `id` : string
+- `title` : string
+- `version`: number
+- `schemaVersion`: string (semver?)
+- `listIds`: string[] (List id)
+- `viewMappings`: ViewMapping[]
+- (artist/attribution)
+- (description)
+- (copyright?)
+
+`Data`
+- `tracks` : string (id) -> Track
+- `lists`: string (id) -> List
+- `experiences`: string (id) -> Experience
+
+### state
+
+`track`:
+- `trackId` : string, Track id
+- `time` : number
+- `canPlay`: boolean
+- `isPlaying` : boolean
+- `speed`: number, default 1
+- `slotKey`: string, Slot key
+- `listId`: string, List id
+- `experienceId`: string, Experience id
+- (loop?)
+- (segment/selection?)
+
+(history)
+(transition)
+(favorites)
+
+### paths
+
+`/`
+`/:experience`
+`/:experience/as/:view`
+`/:experience/:list`
+`/:experience/:list/as/:view`
+`/:experience/:list/:slot`
+`/:experience/:list/:slot/as/:view`
