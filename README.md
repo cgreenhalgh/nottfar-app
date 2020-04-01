@@ -25,10 +25,15 @@ npm start
 ## dependencies
 
 So far, using:
-- react
-- typescript
-- react-router-dom
-- material-ui
+- [react](https://reactjs.org/docs/)
+- [typescript](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+- [redux](https://redux.js.org/basics/usage-with-react)
+- [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
+- [material-ui](https://material-ui.com/getting-started/usage/)
+
+todo
+- lots...
+- [install roboto locally](https://material-ui.com/components/typography/#install-with-npm)
 
 ## design
 

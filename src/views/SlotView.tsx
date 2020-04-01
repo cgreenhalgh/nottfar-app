@@ -4,6 +4,8 @@ import { connect,  ConnectedProps } from 'react-redux'
 import { Data } from '../data/types';
 import UnknownExperience from './UnknownExperience';
 import UnknownList from './UnknownList';
+import NavBar from './NavBar';
+import { Typography, Button, Container, Grid } from '@material-ui/core';
 
 // Single Slot view
 // with react, redux, react-router-dom & typescript typing
@@ -50,9 +52,18 @@ function SlotView ({data, match}:Props) {
     // TODO view key -> mapping -> component
 
     return (<div>
-            <h1>Slot View: {list.title}, {slot.title}</h1>
-            <p> (track {slot.trackId})</p>
-        </div>);
+        <NavBar title={slot.title} />
+        <Container maxWidth='sm'>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography variant="body1">Slot View: {list.title}, {slot.title}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant='contained'>Play track {slot.trackId}</Button>
+                </Grid>
+            </Grid>
+        </Container>
+    </div>);
 }
 
 // connect it up
