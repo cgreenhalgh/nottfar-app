@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps, Link } from "react-router-dom";
 import { connect,  ConnectedProps } from 'react-redux'
 import { Data } from '../data/types';
+import UnknownExperience from './UnknownExperience';
 
 // Single Experience view
 // with react, redux, react-router-dom & typescript typing
@@ -30,9 +31,9 @@ type Props = PropsFromRedux & RouteComponentProps<TParams>
 // Render the Experience identified in the path
 function ExperienceView ({data, match}:Props) {
     let experience = data.experiences[ match.params.experienceId ]
-    if ( !! experience ) 
-        return (
-            <div>
+    if ( ! experience ) 
+        return <UnknownExperience experienceId={match.params.experienceId} />;
+    return (<div>
                 <h1>Experience View: { experience.title } </h1>
                 <ul>
                 { experience.listIds.map((id, index) => (
@@ -43,9 +44,7 @@ function ExperienceView ({data, match}:Props) {
                     </li>
                 ))}
                 </ul>
-            </div>);
-    else
-        return <h1>Unknown experience: { match.params.experienceId }</h1>;
+        </div>);
 }
 
 // connect it up

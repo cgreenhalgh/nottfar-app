@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from "react-router-dom";
 import { connect,  ConnectedProps } from 'react-redux'
 import { Data } from '../data/types';
+import UnknownExperience from './UnknownExperience';
+import UnknownList from './UnknownList';
 
 // Single Slot view
 // with react, redux, react-router-dom & typescript typing
@@ -37,10 +39,10 @@ type Props = PropsFromRedux & RouteComponentProps<TParams>
 function SlotView ({data, match}:Props) {
     let experience = data.experiences[ match.params.experienceId ]
     if ( ! experience ) 
-        return <h1>Unknown experience: { match.params.experienceId }</h1>;
+        return <UnknownExperience experienceId={match.params.experienceId} />;
     let list = data.lists[ match.params.listId ]
     if ( ! list ) 
-        return <h1>Unknown list: { match.params.listId }</h1>;
+        return <UnknownList experience={experience} listId={ match.params.listId } />;
     let slot = list.slots.find( slot => match.params.slotKey === slot.key )
     if ( ! slot ) 
         return <h1>Unknown slot: { match.params.slotKey }</h1>;
