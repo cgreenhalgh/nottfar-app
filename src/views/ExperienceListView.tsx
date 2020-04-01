@@ -1,41 +1,60 @@
 import React from 'react';
 import { connect,  ConnectedProps } from 'react-redux'
 import { Experience, ExperienceMap, Data } from '../data/types';
+import { Link } from 'react-router-dom'
 
-function getExperiences( experienceMap: ExperienceMap ) : Experience[] {
-    let experiences: Experience[] = []
+// List of all Experiences
+// with react, redux, react-router-dom & typescript typing
+
+// state map helpers
+const getTitle = (experience: Experience) => 
+    experience ? experience.title : ''
+
+function getSortedExperienceIds( experienceMap: ExperienceMap ) : string[] {
+    let ids: string[] = []
     for (let ex in experienceMap) {
-        experiences.push( experienceMap[ex] )
+        ids.push( ex )
     }
-    experiences.sort((a, b) => ( a.title.localeCompare(b.title) ));
-    //console.log('experienceMap', experienceMap)
-    //console.log('experiences', experiences)
-    return experiences;
+    ids.sort((a, b) => 
+      ( getTitle( experienceMap[a] )
+        .localeCompare( getTitle( experienceMap[b] ) )
+      ))
+    return ids;
 }
 
+// map state - all experiences and sorted id list
 const mapState = ({data}:{data:Data}) => {
-  return {
-    experiences: getExperiences(data.experiences)
-  }
+    return {
+        experiences: data.experiences,
+        experienceIds: getSortedExperienceIds( data.experiences )
+    }
 }
+// call callbacks to dispatch - none
 const mapDispatch = {
 }
+// connector (for typing)
 const connector = connect(mapState, mapDispatch)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type Props = PropsFromRedux
+// combined view params type
+type Props = PropsFromRedux 
 
 // simple view of experience list
-const ExperienceList = (props:Props) => (
+const ExperienceList = ({experiences, experienceIds}:Props) => (
     <div>
         <h1>Experience List View</h1>
         <ul>
-            { props.experiences.map((experience, index) => (
-              <li key={experience.id}>{ experience.title }, version { experience.version }</li>
+            { experienceIds.map((id, index) => (
+              <li key={id}>
+                <Link to={"/"+id}>
+                    { experiences[id].title }, version { experiences[id].version }
+                </Link>
+              </li>
             ))}
         </ul>
     </div>
 )
 
+// connect component
 export default connector(ExperienceList)
